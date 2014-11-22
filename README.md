@@ -3,7 +3,7 @@ clubinabox
 
 Cake PHP site for managing a club handling membership, meetings, forums and CMS 
 
-ClubInABox was conceived as a slogged away as Secretary at a local primary school parents' association. There seemed to be a lot of time spent doing repetetive
+ClubInABox was conceived as I slogged away as Secretary at a local primary school parents' association. There seemed to be a lot of time spent doing repetetive
 tasks like preparing agendas and minutes and remembering to send reminder emails to track open actions.
 
 We also have a facebook group and a Google Drive (which sadly doesn't permit
