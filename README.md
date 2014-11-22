@@ -3,16 +3,17 @@ clubinabox
 
 Cake PHP site for managing a club handling membership, meetings, forums and CMS 
 
-ClubInABox was conceived as I slogged away as Secretary at a local primary school parents' association. There seemed to be a lot of time spent doing repetetive
+ClubInABox was conceived when I was Secretary at a local primary school parents' association. There seemed to be a lot of time spent doing repetetive
 tasks like preparing agendas and minutes and remembering to send reminder emails to track open actions.
 
 We also have a facebook group and a Google Drive (which sadly doesn't permit
 easy publishing of html content) so I figured it was time to bring it all under one site and add membership management with optional payments into the mix.
 
 So, when it's done ClubInABox will:
-  + Allow registration of new members
-  + Manage membership renewal
-  + Manage club/association meetings/agenda/minutes
+  + allow registration of new members
+  + manage membership renewal
+  + allow regular and one-off payments to the association
+  + manage club/association meetings/agenda/minutes
   + remind members of open actions
   + allow a facebook-style fofum for member discussions
   + provide a CMS for posting new club information
