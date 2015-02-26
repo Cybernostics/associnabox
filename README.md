@@ -3,8 +3,7 @@ AssocInABox
 
 Cake PHP site for managing a club handling membership, meetings, forums and CMS
 
-AssocInABox was conceived when I was Secretary at a local primary school parents' association. There seemed to be a lot of time spent doing repetetive
-tasks like preparing agendas and minutes and remembering to send reminder emails to track open actions.
+AssocInABox was conceived when I was Secretary at a local primary school parents' association. There seemed to be a lot of time spent doing repetetive tasks like preparing agendas and minutes and remembering to send reminder emails to track open actions.
 
 We also have a facebook group and a Google Drive (which sadly doesn't permit
 easy publishing of html content) so I figured it was time to bring it all under one site and add membership management with optional payments into the mix.
