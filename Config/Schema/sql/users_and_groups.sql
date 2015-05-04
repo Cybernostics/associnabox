@@ -4,7 +4,6 @@ CREATE TABLE aib_users (
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     salt VARCHAR(255) NOT NULL,
-    group_id INT(11) NOT NULL,
     created DATETIME,
     modified DATETIME
 );

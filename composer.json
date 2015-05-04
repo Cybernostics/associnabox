@@ -1,7 +1,7 @@
 {
   "name": "friendsofcake/app-template",
   "description": "An empty CakePHP 2.5 application",
-  "type": "project",
+  "type": "cakephp-plugin",
   "keywords" : [],
   "homepage" : "http://cakephp.org",
   "license" : "MIT",

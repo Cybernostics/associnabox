@@ -223,8 +223,7 @@ class AppSchema extends CakeSchema
                 array(
                         'username' => Column::string(),
                         'password' => Column::string(),
-                        'salt' => Column::string(),
-                        'group_id' => Column::foreignKey()
+                        'salt' => Column::string()
                 ))->asArray();
         
         $this->aib_users_groups = TableDef::stdCakeTable()->withColumns(
