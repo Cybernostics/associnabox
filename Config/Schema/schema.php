@@ -4,7 +4,6 @@ require_once __DIR__ . '/ColumnTypes.php';
 class AppSchema extends CakeSchema
 {
 
-
     public function __construct ($options = array())
     {
         $this->init();
@@ -16,7 +15,7 @@ class AppSchema extends CakeSchema
         $this->aib_action_status_codes = TableDef::stdCakeTable()->withColumns(
                 array(
                         'name' => Column::string(),
-                        'description'=> Column::string()
+                        'description' => Column::string()
                 ))->asArray();
         
         $this->aib_actions = TableDef::stdCakeTable()->withColumns(
@@ -44,6 +43,12 @@ class AppSchema extends CakeSchema
                         'scheduled' => Column::dateTime()
                 ))->asArray();
         
+        $this->aib_committee_meeting_attendance = TableDef::stdCakeTable()->withColumns(
+                array(
+                        'committee_meeting_id' => Column::foreignKey(),
+                        'user_id' => Column::foreignKey()
+                ))->asArray();
+        
         $this->aib_committees = TableDef::stdCakeTable()->withColumns(
                 array(
                         'name' => Column::string(),
@@ -64,16 +69,35 @@ class AppSchema extends CakeSchema
                         'user_id' => Column::foreignKey(),
                         'group_id' => Column::foreignKey(),
                         'name' => Column::string(),
-                        'folder_id' => Column::foreignKey(),
                         'fileuri' => Column::string(),
                         'revision' => Column::integer()
                 ))->asArray();
         
-        $this->aib_documents = TableDef::stdCakeTable()->withColumns(
+        $this->aib_markdown_documents = TableDef::stdCakeTable()->withColumns(
                 array(
                         'user_id' => Column::foreignKey(),
                         'group_id' => Column::foreignKey(),
-                        'folder_id' => Column::foreignKey(),
+                        'uuid' => Column::string(),
+                        'name' => Column::string(),
+                        'content' => Column::text(),
+                        'revision' => Column::integer()
+                ))->asArray();
+        
+        // $this->aib_folders = TableDef::stdCakeTable()->withColumns(
+        // array(
+        // 'name' => Column::string(),
+        // 'user_id' => Column::foreignKey(),
+        // 'group_id' => Column::foreignKey(),
+        // 'parent_id' => Column::foreignKey(),
+        // 'lft' => Column::integer(),
+        // 'rght' => Column::integer()
+        // ))->asArray();
+        
+        $this->aib_pages = TableDef::stdCakeTable()->withColumns(
+                array(
+                        'user_id' => Column::foreignKey(),
+                        'group_id' => Column::foreignKey(),
+                        'menu_id' => Column::foreignKey(),
                         'name' => Column::string(),
                         'content' => Column::text(),
                         'revision' => Column::integer()
@@ -121,11 +145,12 @@ class AppSchema extends CakeSchema
                         'gst' => Column::amount(),
                         'delivered' => Column::amount()->comment(
                                 'true if the item has been delivered to the user')
-                ))->asArray();
+                ))
+            ->asArray();
         
         $this->aib_invoice_status_codes = TableDef::stdCakeTable()->withColumns(
                 array(
-                        'label' => Column::string()
+                        'name' => Column::string()
                 ))->asArray();
         
         $this->aib_invoices = TableDef::stdCakeTable()->withColumns(
@@ -158,7 +183,8 @@ class AppSchema extends CakeSchema
                         'banked_amount' => Column::amount(),
                         'payment_status_id' => Column::foreignKey(),
                         'banked_on' => Column::datetime()
-                ))->asArray();
+                ))
+            ->asArray();
         
         $this->aib_posts = TableDef::stdCakeTable()->withColumns(
                 array(
@@ -171,13 +197,17 @@ class AppSchema extends CakeSchema
                 array(
                         'product_code' => Column::string(),
                         'description' => Column::string(),
-                        'item_type_id' => Column::foreignKey()->comment('1 - voucher,2- physical item 3- subscription 4-download'),
+                        'item_type_id' => Column::foreignKey()->comment(
+                                '1 - voucher,2- physical item 3- subscription 4-download'),
                         'name' => Column::string(),
                         'url' => Column::url(),
-                        'recurrence' => Column::integer()->comment( '0 for single purchase items, >0 for billing frequency in approx days 180=half-yearly,365=yearly'), 
+                        'recurrence' => Column::integer()->comment(
+                                '0 for single purchase items, >0 for billing frequency in approx days 180=half-yearly,365=yearly'),
                         'category_id' => Column::foreignKey(),
-                        'payment_event' => Column::string()->comment('Name of the event raised when one of these is purchased'), 
-                        'event_args' => Column::string()->comment('variable argument list to pass to the processor'), 
+                        'payment_event' => Column::string()->comment(
+                                'Name of the event raised when one of these is purchased'),
+                        'event_args' => Column::string()->comment(
+                                'variable argument list to pass to the processor'),
                         'track_inventory' => Column::boolean()->comment(
                                 'if true product has stock levels'),
                         'is_option' => Column::boolean()->comment(
@@ -187,7 +217,8 @@ class AppSchema extends CakeSchema
                         'parent_id' => Column::foreignKey(),
                         'lft' => Column::integer(),
                         'rght' => Column::integer()
-                ))->asArray();
+                ))
+            ->asArray();
         
         $this->aib_roles = TableDef::stdCakeTable()->withColumns(
                 array(
@@ -197,20 +228,18 @@ class AppSchema extends CakeSchema
         $this->aib_tagged_items = TableDef::stdCakeTable()->withColumns(
                 array(
                         'tag_id' => Column::foreignKey(),
-                        'table_id' => Column::foreignKey(),
+                        'model_id' => Column::foreignKey(),
                         'item_id' => Column::foreignKey()
                 ))->asArray();
         
-        $this->aib_tagged_tables = TableDef::stdCakeTable()->withColumns(
+        $this->aib_taggable_models = TableDef::stdCakeTable()->withColumns(
                 array(
-                        'tag_id' => Column::foreignKey(),
-                        'table_id' => Column::foreignKey(),
-                        'item_id' => Column::foreignKey()
+                        'name' => Column::string()
                 ))->asArray();
         
         $this->aib_tags = TableDef::stdCakeTable()->withColumns(
                 array(
-                        'label' => Column::string()
+                        'name' => Column::string()
                 ))->asArray();
         
         $this->aib_upvotes = TableDef::stdCakeTable()->withColumns(
@@ -223,7 +252,7 @@ class AppSchema extends CakeSchema
                 array(
                         'username' => Column::string(),
                         'password' => Column::string(),
-                        'salt' => Column::string()
+                        'group_id' => Column::foreignKey()
                 ))->asArray();
         
         $this->aib_users_groups = TableDef::stdCakeTable()->withColumns(
@@ -254,7 +283,8 @@ class AppSchema extends CakeSchema
                         'label' => Column::string(),
                         'abbreviation' => Column::string()->comment(
                                 'eg Rd, St etc')
-                ))->asArray();
+                ))
+            ->asArray();
         
         $this->aib_usr_user_profiles = TableDef::stdCakeTable()->withColumns(
                 array(
